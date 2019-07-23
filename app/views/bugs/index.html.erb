@@ -1,0 +1,55 @@
+
+<h1>Listing Bugs</h1>
+  <div class ="table-responsive">
+    <table class ="table">
+      <tr>
+        <th>Bug Image</th>
+        <th>Bug Title</th>
+        <th>Bug Type</th>
+        <th>Bug Status</th>
+        <th>Bug Deadline</th>
+        <th>Action</th>
+        <th>Current Status</th>
+      </tr>
+    <% @bugs.each do |bug| %>
+      <tr>
+        <td><%= image_tag bug.image_url(:thumb) %></td>
+        <td><%= bug.title %></td>
+        <td><%= bug.bug_type  %></td>
+        <td><%= bug.status %></td>
+        <td><%= bug.date %></td>
+    <!--<td><%= link_to 'Edit', edit_project_bug_path(@project,bug) %></td> -->
+        <% if current_user.type == 'Dev'%>
+          <% if (!(bug.assignee_id == current_user.id)) and !(@devs.ids.include?bug.assignee_id )%>
+        
+            <td><%= link_to 'Assign to me', assign_developer_project_bug_path(@project , bug , user_id: current_user.id) %></td>
+            <td><%= bug.status %></td>
+        
+          <% elsif ((bug.assignee_id == current_user.id) || (@devs.ids.include?bug.assignee_id)) and bug.status == 'Resolved' %>
+            <td><b>Assigned to <%= bug.assignee.email%></b></td>
+            <td>Resolved !</td>
+
+          <% elsif bug.assignee_id == current_user.id %>  
+            <td><b>Assigned to <%= bug.assignee.email%></b></td>
+            <td><%= link_to 'Mark as Resolved', change_status_project_bug_path(@project, bug ) %></td> 
+          <% else %>
+            <td><b>Assigned to <%= bug.assignee.email %></b></td>
+            <td><%= bug.status %></td>
+          <% end %>
+        <% elsif  current_user.type =='Qa'  %>
+            <td>---</td>
+            <td><%= bug.status %></td>     
+        <% end %>
+      </tr>
+  <% end %>
+</table>
+</div>
+
+
+
+
+
+
+
+
+

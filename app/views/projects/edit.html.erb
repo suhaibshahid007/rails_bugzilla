@@ -1,0 +1,84 @@
+<h1>Edit  Projects</h1>
+<%= form_for :project, url:  project_path(@project), method: :patch  do |f| %>
+  <p>
+    <%= f.label :title %><br>
+    <%= f.text_field(:title,{:class => 'form-control'}) %>
+  </p>
+
+  <p>
+    <%= f.label :body %><br>
+    <%= f.text_area(:body, {:class => 'form-control'}) %>
+  </p>
+
+  <p>
+    <%= f.submit({:class => 'btn btn-primary'} )  %>
+  </p>
+
+<% end %>
+
+<h1>Add Developers</h1>
+<div class = "table-responsive">
+<table class="table">
+  <tr>
+    <th>
+        Email
+    </th>
+    <th>
+        Status
+    </th>
+    <th>
+        Actions
+    </th>
+    </tr>
+<% @developers.each do |dev| %>
+    
+      <% if (@project.users.ids.include? dev.id) %>
+      <tr bgcolor="#000000"> 
+        <td> <%= dev.email.concat%> </td>        
+        <td><b>Already Added !</b></td>
+        <td><%= link_to 'Remove Developer', remove_user_project_path(@project , user_id: dev.id) %></td>
+      </tr>
+      <% else %>
+        <tr>
+          <td> <%= dev.email.concat%> </td>  
+          <td><b>Not Added !</b></td>
+          <td><%= link_to 'Add Developer', add_user_project_path(@project , user_id: dev.id) %></td>
+        </tr> 
+      <% end %>
+  <% end %>
+</table>
+</div>
+
+<h1>Add QAs</h1>
+<div class = "table-responsive">
+<table class="table">
+  <tr>
+    <th>
+        Email
+    </th>
+    <th>
+        Status
+    </th>
+    <th>
+        Actions
+    </th>
+    </tr>
+<% @qas.each do |qa| %>
+      <% if !(@project.users.ids.include? qa.id) %>
+        <tr>
+          <td> <%= qa.email %> </td>
+          <td><b>Not Added !</b></td>
+          <td><%= link_to 'Add QA', add_user_project_path(@project , user_id: qa.id) %></td>
+        </tr>
+      <% else %>
+        <tr bgcolor="#000000">
+          <td> <%= qa.email %> </td>
+          <td><b>Already Added</b></td>
+          <td><%= link_to '  Remove Qa', remove_user_project_path(@project , user_id: qa.id) %></td>
+        </tr>
+      <% end %>
+   </tr>
+  <% end %>
+</table>
+</div>
+<%= link_to 'Back', projects_path %>

@@ -1,0 +1,36 @@
+
+<h1>Add Bugs</h1>
+<%= form_for :bug,  url: project_bugs_path(@project), :html => {:multipart => true}  do |f| %>
+
+  <p>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </p>
+
+  <p>
+    <%= label_tag 'Bug Deadline:' %></br>
+    <%= f.date_field :date %>
+  </p>
+
+  <p>
+    <%= label_tag 'Bug Type:' %></br>
+    
+    <%= f.radio_button :bug_type, 'Bug', :checked =>true, data: {behavior: "clickable"} %>Bug <br/>
+      <%= f.radio_button :bug_type, 'Feature', data: {behavior: "clickable"} %> Feature<br/>
+  </p>
+
+  <p>
+    <%= label_tag 'Bug Status:' %></br>
+    
+    <%= f.select :status, options_for_select([["New"] ,["Started"] , ["Resolved"]]) %>
+  </p>  
+
+  <p>
+    <%= f.file_field :image %>
+  </p>
+
+  <p>
+    <%= f.submit "Add Bug"%>
+  </p>
+<% end %> 
+

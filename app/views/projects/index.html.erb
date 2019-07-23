@@ -1,0 +1,13 @@
+<h1>Listing Projects</h1>
+<% @projects.each do |project| %>
+  <div class = "well">
+    <h3><%= project.title %></h3>
+    <%= link_to "Read More",project_path(project), :class => 'btn btn-default' %>
+    <% if project.users.ids.include?current_user.id and current_user.type == "Qa"%> 
+        <%= link_to "Report Bugs" , new_project_bug_path(project), :class => 'btn btn-default' %>
+        <%= link_to "View Bugs" , project_bugs_path(project), :class => 'btn btn-default' %>
+    <% elsif project.users.ids.include?current_user.id and current_user.type == "Dev"%>
+         <%= link_to "View Bugs" , project_bugs_path(project), :class => 'btn btn-default' %>
+    <% end %>
+  </div>
+<% end %>

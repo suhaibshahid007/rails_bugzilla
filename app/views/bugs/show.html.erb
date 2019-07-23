@@ -1,0 +1,12 @@
+<p>
+  <strong>Title: </strong>
+  <%= @bug.title %><br>
+  <strong>Deadline: </strong>
+  <%= @bug.date %><br>
+  <strong>Status: </strong>
+  <%= @bug.status %><br>
+  <strong>Bug Type: </strong>
+  <%= @bug.bug_type %><br>
+  <%= image_tag @bug.image_url.to_s %>
+</p>
+

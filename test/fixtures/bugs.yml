@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  date: 2019-07-15
+  bug_type: MyString
+  status: MyString
+
+two:
+  title: MyString
+  date: 2019-07-15
+  bug_type: MyString
+  status: MyString
