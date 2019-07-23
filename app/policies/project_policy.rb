@@ -10,6 +10,7 @@ class ProjectPolicy < ApplicationPolicy
 
     def resolve
       scope.where(id: user.projects.pluck(:id))
+      #hello world
     end
   end
 
